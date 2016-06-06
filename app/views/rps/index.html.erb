@@ -12,13 +12,13 @@
         </div>
         <div>
           <%= link_to "#" do %>
-            <%= image_tag "rps/rock.jpg", class: "img-thumbnail choice", size: "50x50", "data-choice": "rock" %>
+            <%= image_tag "rps/rock.jpg", class: "img-thumbnail choice", size: "50x50", "data-pick": "rock" %>
           <% end %>
           <%= link_to "#" do %>
-            <%= image_tag "rps/paper.jpg", class: "img-thumbnail choice", size: "50x50", "data-choice": "paper" %>
+            <%= image_tag "rps/paper.jpg", class: "img-thumbnail choice", size: "50x50", "data-pick": "paper" %>
           <% end %>
           <%= link_to "#" do %>
-            <%= image_tag "rps/scissor.jpg", class: "img-thumbnail choice", size: "50x50", "data-choice": "scissor" %>
+            <%= image_tag "rps/scissor.jpg", class: "img-thumbnail choice", size: "50x50", "data-pick": "scissor" %>
           <% end %>
         </div>
         <br>
@@ -33,6 +33,15 @@
         <div id="pc-sign">
         </div>
       </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="container rps-board-result">
+      <center>
+        <div class="result">
+          <b>Please choose your pick!</b>
+        </div>
+      </center>
     </div>
   </div>
 </section>

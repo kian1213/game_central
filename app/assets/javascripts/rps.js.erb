@@ -4,6 +4,8 @@ $(document).ready(function(){
   var scissor = new Image();
   var playerName;
   var choices = ["rock", "paper", "scissor"];
+  var compPick;
+  var playerPick;
 
   rock.src = "<%= asset_path('rps/rock.jpg') %>"
   paper.src = "<%= asset_path('rps/paper.jpg') %>"
@@ -21,15 +23,18 @@ $(document).ready(function(){
 
   var getRandomPick = function(){
     var randIndex = Math.floor(Math.random()*choices.length);
-    var compChoose = choices[randIndex];
+    compPick = choices[randIndex];
     $("#pc-sign").empty();
-    if(compChoose === "rock") {
+    if(compPick === "rock") {
       $("#pc-sign").append("<img src='"+rock.src+"' width='250' height='250'>")
-    } else if (compChoose === "paper") {
+    } else if (compPick === "paper") {
       $("#pc-sign").append("<img src='"+paper.src+"' width='250' height='250'>")
     } else {
       $("#pc-sign").append("<img src='"+scissor.src+"' width='250' height='250'>")
     };
+  };
+
+  var checkPickWinner = function(){
   };
 
   $(".start-btn").click(function(){
@@ -40,14 +45,16 @@ $(document).ready(function(){
     $("#player").html(playerName);
     $(this).hide();
     $(".rps-board").show();
+    $(".rps-board-result").show();
   })
 
   $(".choice").on("click", function(e){
     e.preventDefault();
-    var choiceData = $(this).data("choice");
+    playerPick = $(this).data("pick");
     $("#chosen-sign").empty();
-    assignImage(choiceData);
+    assignImage(playerPick);
     getRandomPick();
+    checkPickWinner();
   });
 
 });
