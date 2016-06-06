@@ -1,0 +1,53 @@
+$(document).ready(function(){
+  var rock = new Image();
+  var paper = new Image();
+  var scissor = new Image();
+  var playerName;
+  var choices = ["rock", "paper", "scissor"];
+
+  rock.src = "<%= asset_path('rps/rock.jpg') %>"
+  paper.src = "<%= asset_path('rps/paper.jpg') %>"
+  scissor.src = "<%= asset_path('rps/scissor.jpg') %>"
+
+  var assignImage = function(image){
+    if(image === "rock") {
+      $("#chosen-sign").append("<img src='"+rock.src+"' width='250' height='250'>")
+    } else if (image === "paper") {
+      $("#chosen-sign").append("<img src='"+paper.src+"' width='250' height='250'>")
+    } else {
+      $("#chosen-sign").append("<img src='"+scissor.src+"' width='250' height='250'>")
+    };
+  };
+
+  var getRandomPick = function(){
+    var randIndex = Math.floor(Math.random()*choices.length);
+    var compChoose = choices[randIndex];
+    $("#pc-sign").empty();
+    if(compChoose === "rock") {
+      $("#pc-sign").append("<img src='"+rock.src+"' width='250' height='250'>")
+    } else if (compChoose === "paper") {
+      $("#pc-sign").append("<img src='"+paper.src+"' width='250' height='250'>")
+    } else {
+      $("#pc-sign").append("<img src='"+scissor.src+"' width='250' height='250'>")
+    };
+  };
+
+  $(".start-btn").click(function(){
+    playerName = prompt("Please Enter Player Name");
+    if (playerName.length === 0){
+      playerName = "Player";
+    };
+    $("#player").html(playerName);
+    $(this).hide();
+    $(".rps-board").show();
+  })
+
+  $(".choice").on("click", function(e){
+    e.preventDefault();
+    var choiceData = $(this).data("choice");
+    $("#chosen-sign").empty();
+    assignImage(choiceData);
+    getRandomPick();
+  });
+
+});

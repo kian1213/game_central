@@ -2,3 +2,25 @@
   margin-bottom: 0px !important;
   border-radius: 0px !important;
 }
+
+/*Rock Paper Scissor*/
+
+.start-btn {
+  margin-top: 20px;
+}
+
+.rps-board {
+  border: 2px solid #333333;
+  margin-top: 20px;
+  min-height: 400px;
+  display: none;
+}
+
+#chosen-sign {
+  margin-left: 150px;
+}
+
+#pc-sign {
+  margin-top: 75px;
+  margin-left: 50px;
+}

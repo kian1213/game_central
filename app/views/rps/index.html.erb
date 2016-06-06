@@ -1,0 +1,38 @@
+<section>
+  <div class="row">
+    <center class="start-btn">
+      <button class="btn btn-lg btn-primary">Start New Game</button>
+    </center>
+  </div>
+  <div class="row">
+    <div class="container rps-board">
+      <div class="col-md-6 rps-board-left">
+        <div>
+          <b><span id="player"></span></b>
+        </div>
+        <div>
+          <%= link_to "#" do %>
+            <%= image_tag "rps/rock.jpg", class: "img-thumbnail choice", size: "50x50", "data-choice": "rock" %>
+          <% end %>
+          <%= link_to "#" do %>
+            <%= image_tag "rps/paper.jpg", class: "img-thumbnail choice", size: "50x50", "data-choice": "paper" %>
+          <% end %>
+          <%= link_to "#" do %>
+            <%= image_tag "rps/scissor.jpg", class: "img-thumbnail choice", size: "50x50", "data-choice": "scissor" %>
+          <% end %>
+        </div>
+        <br>
+        <div id="chosen-sign">
+        </div>
+        <br>
+      </div>
+      <div class="col-md-6 rps-board-right">
+        <div>
+          <b>Computer</b>
+        </div>
+        <div id="pc-sign">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
