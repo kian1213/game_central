@@ -35,6 +35,34 @@ $(document).ready(function(){
   };
 
   var checkPickWinner = function(){
+    $(".result").empty();
+    if (playerPick == compPick) {
+      $(".result").html("<h3><b>The result is a tie..</b></h3>");
+    } else {
+      switch(playerPick){
+        case "rock":
+        if (compPick == "scissor"){
+          $(".result").html("<h3><b>You win!!</b></h3>");
+        } else {
+          $(".result").html("<h3><b>Computer win!!</b></h3>");
+        };
+        break;
+        case "paper":
+        if (compPick == "rock"){
+          $(".result").html("<h3><b>You win!!</b></h3>");
+        } else {
+          $(".result").html("<h3><b>Computer win!!</b></h3>");
+        };
+        break;
+        case "scissor":
+        if (compPick == "paper"){
+          $(".result").html("<h3><b>You win!!</b></h3>");
+        } else {
+          $(".result").html("<h3><b>Computer win!!</b></h3>");
+        };
+        break;
+      };
+    }
   };
 
   $(".start-btn").click(function(){
