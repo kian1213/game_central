@@ -6,6 +6,8 @@ $(document).ready(function(){
   var choices = ["rock", "paper", "scissor"];
   var compPick;
   var playerPick;
+  var playerScore = 0;
+  var comScore = 0;
 
   rock.src = "<%= asset_path('rps/rock.jpg') %>"
   paper.src = "<%= asset_path('rps/paper.jpg') %>"
@@ -34,47 +36,61 @@ $(document).ready(function(){
     };
   };
 
+  var getScore = function(){
+    $("#player-score").html("<b>"+playerScore+"</b>");
+    $("#com-score").html("<b>"+comScore+"</b>");
+  }
+
   var checkPickWinner = function(){
     $(".result").empty();
+    var playerWinText = "<h3><b>You win!!</b></h3>";
+    var compWinText = "<h3><b>Computer win!!</b></h3>"
     if (playerPick == compPick) {
       $(".result").html("<h3><b>The result is a tie..</b></h3>");
     } else {
       switch(playerPick){
         case "rock":
         if (compPick == "scissor"){
-          $(".result").html("<h3><b>You win!!</b></h3>");
+          $(".result").html(playerWinText);
+          playerScore++;
         } else {
-          $(".result").html("<h3><b>Computer win!!</b></h3>");
+          $(".result").html(compWinText);
+          comScore++;
         };
         break;
         case "paper":
         if (compPick == "rock"){
-          $(".result").html("<h3><b>You win!!</b></h3>");
+          $(".result").html(playerWinText);
+          playerScore++
         } else {
-          $(".result").html("<h3><b>Computer win!!</b></h3>");
+          $(".result").html(compWinText);
+          comScore++
         };
         break;
         case "scissor":
         if (compPick == "paper"){
-          $(".result").html("<h3><b>You win!!</b></h3>");
+          $(".result").html(playerWinText);
+          playerScore++
         } else {
-          $(".result").html("<h3><b>Computer win!!</b></h3>");
+          $(".result").html(compWinText);
+          comScore++
         };
         break;
       };
-    }
+    };
+    getScore();
   };
 
-  $(".start-btn").click(function(){
+  var startGame = function(){
     playerName = prompt("Please Enter Player Name");
     if (playerName.length === 0){
       playerName = "Player";
     };
     $("#player").html(playerName);
-    $(this).hide();
     $(".rps-board").show();
     $(".rps-board-result").show();
-  })
+    getScore();
+  };
 
   $(".choice").on("click", function(e){
     e.preventDefault();
@@ -85,4 +101,8 @@ $(document).ready(function(){
     checkPickWinner();
   });
 
+  $(".start-btn").click(function(){
+    startGame();
+    $(this).hide();
+  })
 });
