@@ -13,13 +13,13 @@ $(document).ready(function(){
   paper.src = "<%= asset_path('rps/paper.jpg') %>"
   scissor.src = "<%= asset_path('rps/scissor.jpg') %>"
 
-  var assignImage = function(image){
+  var assignImage = function(image, divElement){
     if(image === "rock") {
-      $("#chosen-sign").append("<img src='"+rock.src+"' width='250' height='250'>")
+      $(divElement).append("<img src='"+rock.src+"' width='250' height='250'>")
     } else if (image === "paper") {
-      $("#chosen-sign").append("<img src='"+paper.src+"' width='250' height='250'>")
+      $(divElement).append("<img src='"+paper.src+"' width='250' height='250'>")
     } else {
-      $("#chosen-sign").append("<img src='"+scissor.src+"' width='250' height='250'>")
+      $(divElement).append("<img src='"+scissor.src+"' width='250' height='250'>")
     };
   };
 
@@ -27,13 +27,8 @@ $(document).ready(function(){
     var randIndex = Math.floor(Math.random()*choices.length);
     compPick = choices[randIndex];
     $("#pc-sign").empty();
-    if(compPick === "rock") {
-      $("#pc-sign").append("<img src='"+rock.src+"' width='250' height='250'>")
-    } else if (compPick === "paper") {
-      $("#pc-sign").append("<img src='"+paper.src+"' width='250' height='250'>")
-    } else {
-      $("#pc-sign").append("<img src='"+scissor.src+"' width='250' height='250'>")
-    };
+    var pcSign = $("#pc-sign");
+    assignImage(compPick, pcSign);
   };
 
   var getScore = function(){
@@ -89,12 +84,10 @@ $(document).ready(function(){
   var checkFinalWinner = function(){
     if (playerScore == 5) {
       $(".result").html("<h3><b>Congratulations!! You win!!</b></h3>");
-      $(".choice").prop('disabled', true);
       $(".start-btn").show();
     };
     if (comScore == 5) {
       $(".result").html("<h3><b>Awwwwww!! Computer win!!</b></h3>");
-      $(".choice").prop('disabled', true);
       $(".start-btn").show();
     };
   };
@@ -116,7 +109,8 @@ $(document).ready(function(){
     e.preventDefault();
     playerPick = $(this).data("pick");
     $("#chosen-sign").empty();
-    assignImage(playerPick);
+    var chosenSign = $("#chosen-sign");
+    assignImage(playerPick, chosenSign);
     getRandomPick();
     checkPickWinner();
     checkFinalWinner();
