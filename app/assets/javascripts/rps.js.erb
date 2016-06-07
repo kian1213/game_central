@@ -24,11 +24,22 @@ $(document).ready(function(){
   };
 
   var getRandomPick = function(){
-    var randIndex = Math.floor(Math.random()*choices.length);
-    compPick = choices[randIndex];
-    $("#pc-sign").empty();
     var pcSign = $("#pc-sign");
-    assignImage(compPick, pcSign);
+    var randIndex;
+    var i = 0;
+    var changeImage = setInterval(function(){
+        $("#pc-sign").empty();
+        randIndex = Math.floor(Math.random()*choices.length);
+        compPick = choices[randIndex];
+        assignImage(compPick, pcSign);
+        i++;
+        if (i == 10) {
+          clearInterval(changeImage);
+          checkPickWinner();
+          checkFinalWinner();
+        };
+    }, 50);
+    changeImage();
   };
 
   var getScore = function(){
@@ -112,8 +123,6 @@ $(document).ready(function(){
     var chosenSign = $("#chosen-sign");
     assignImage(playerPick, chosenSign);
     getRandomPick();
-    checkPickWinner();
-    checkFinalWinner();
   });
 
   $(".start-btn").click(function(){
