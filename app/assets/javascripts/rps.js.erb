@@ -2,6 +2,8 @@ $(document).ready(function(){
   var rock = new Image();
   var paper = new Image();
   var scissor = new Image();
+  var win = new Image();
+  var lose = new Image();
   var playerName;
   var choices = ["rock", "paper", "scissor"];
   var compPick;
@@ -12,6 +14,8 @@ $(document).ready(function(){
   rock.src = "<%= asset_path('rps/rock.jpg') %>"
   paper.src = "<%= asset_path('rps/paper.jpg') %>"
   scissor.src = "<%= asset_path('rps/scissor.jpg') %>"
+  win.src = "<%= asset_path('rps/win.gif') %>"
+  lose.src = "<%= asset_path('rps/lose.gif') %>"
 
   var assignImage = function(image, divElement){
     if(image === "rock") {
@@ -94,10 +98,14 @@ $(document).ready(function(){
 
   var checkFinalWinner = function(){
     if (playerScore == 5) {
+      $(".rps-board").hide();
+      $(".rps-board-result").append("<center class='resultGif'><img src='"+win.src+"' width='500' height='350'></center>");
       $(".result").html("<h3><b>Congratulations!! You win!!</b></h3>");
       $(".start-btn").show();
     };
     if (comScore == 5) {
+      $(".rps-board").hide();
+      $(".rps-board-result").append("<center class='resultGif'><img src='"+lose.src+"' width='500' height='350'></center>");
       $(".result").html("<h3><b>Awwwwww!! Computer win!!</b></h3>");
       $(".start-btn").show();
     };
@@ -109,6 +117,7 @@ $(document).ready(function(){
       playerName = "Player";
     };
     $("#player").html(playerName);
+    $(".resultGif").remove();
     $(".rps-board").show();
     $(".rps-board-result").show();
     $(".choice").attr('disabled', '');
