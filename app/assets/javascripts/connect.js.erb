@@ -78,6 +78,8 @@ $(document).ready(function(){
       };
     };
     targetPosition = initialPosition + (7 * (6 - filledPosition));
+    $(this).removeClass((currentPlayer == "red") ? "red" : "black");
+    $(this).addClass((currentPlayer == "red") ? "black" : "red");
     $(".piece-holder").eq(targetPosition - 1).children().first().addClass((currentPlayer == "red") ? "red" : "black");
     checkWinner(currentPlayer, targetPosition - 1);
     changePlayer(currentPlayer);
