@@ -1,0 +1,33 @@
+$(document).ready(function(){
+  var currentTurnPosition;
+
+
+  $(".turn-position").hover(
+    function(){
+      currentTurnPosition = $(this).html();
+      $(this).addClass("red");
+    },
+    function(){
+      $(this).removeClass("red");
+    }
+  );
+
+  $(".turn-position").click(function(){
+    var initialPosition = $(this).data("position");
+    var filledPosition = 0;
+    var targetPosition = 0;
+    var lastPossiblePosition = initialPosition + (7*6);
+    var hasRed;
+    var hasBlack;
+
+    for(var i = lastPossiblePosition; i >= 1; i-=7){
+      hasRed = $(".piece-holder").eq(i - 1).children().first().hasClass("red");
+      hasBlack = $(".piece-holder").eq(i - 1).children().first().hasClass("black");
+      if (hasRed || hasBlack){
+        filledPosition++;
+      };
+    };
+    targetPosition = initialPosition + (7 * (6 - filledPosition));
+    $(".piece-holder").eq(targetPosition - 1).children().first().addClass("red");
+  })
+});

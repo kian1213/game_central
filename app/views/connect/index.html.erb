@@ -6,7 +6,7 @@
           <thead>
             <tr>
               <% (1..7).to_a.each do |number| %>
-                <td class="turn-position"></td>
+                <td class="turn-position" data-position="<%= number %>"></td>
               <% end %>
             </tr>
           </thead>
@@ -14,7 +14,7 @@
             <% (1..49).to_a.in_groups_of(7).each do |groups| %>
               <tr>
                 <% groups.each do |row| %>
-                  <td class="piece-holder"><div class="blank"></div></td>
+                  <td class="piece-holder"><div class="blank"><%= row%></div></td>
                 <% end %>
               </tr>
             <% end %>
