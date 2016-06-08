@@ -1,14 +1,64 @@
 $(document).ready(function(){
   var currentTurnPosition;
+  var currentPlayer = "red";
 
+  var changePlayer = function(current){
+    if (current == "red"){
+      currentPlayer = "black";
+    } else {
+      currentPlayer = "red";
+    }
+  };
+
+  var checkWinner = function(currentPlayer, targetPosition){
+    for(var i = 0; i <= 48;  i++){
+      if((i + 3 <= 48 &&
+          i != 4 && i!= 5 && i != 6 &&
+          i != 11 && i!= 12 && i != 13 &&
+          i != 18 && i!= 19 && i != 20 &&
+          i != 25 && i!= 26 && i != 27 &&
+          i != 32 && i!= 33 && i != 34 &&
+          i != 39 && i!= 40 && i != 41 &&
+          i != 46 && i!= 47 && i != 48 &&
+          $(".piece-holder").eq(i).children().first().hasClass(currentPlayer) &&
+          $(".piece-holder").eq(i + 1).children().first().hasClass(currentPlayer) &&
+          $(".piece-holder").eq(i + 2).children().first().hasClass(currentPlayer) &&
+          $(".piece-holder").eq(i + 3).children().first().hasClass(currentPlayer))
+          || (i + (7*3) <= 48 &&
+          $(".piece-holder").eq(i).children().first().hasClass(currentPlayer) &&
+          $(".piece-holder").eq(i + 7).children().first().hasClass(currentPlayer) &&
+          $(".piece-holder").eq(i + (7*2)).children().first().hasClass(currentPlayer) &&
+          $(".piece-holder").eq(i + (7*3)).children().first().hasClass(currentPlayer))
+          || (i + (7*3+3) <= 48 &&
+          $(".piece-holder").eq(i).children().first().hasClass(currentPlayer) &&
+          $(".piece-holder").eq(i + 7 + 1).children().first().hasClass(currentPlayer) &&
+          $(".piece-holder").eq(i + (7*2+2)).children().first().hasClass(currentPlayer) &&
+          $(".piece-holder").eq(i + (7*3+3)).children().first().hasClass(currentPlayer))
+          || (i + (7*3) <= 48 &&
+          i != 0 && i!= 1 && i != 2 &&
+          i != 7 && i!= 8 && i != 9 &&
+          i != 14 && i!= 15 && i != 16 &&
+          i != 21 && i!= 22 && i != 23 &&
+          i != 28 && i!= 29 && i != 30 &&
+          i != 35 && i!= 36 && i != 37 &&
+          i != 42 && i!= 43 && i != 44 &&
+          $(".piece-holder").eq(i).children().first().hasClass(currentPlayer) &&
+          $(".piece-holder").eq(i + 7 - 1).children().first().hasClass(currentPlayer) &&
+          $(".piece-holder").eq(i + (7*2-2)).children().first().hasClass(currentPlayer) &&
+          $(".piece-holder").eq(i + (7*3-3)).children().first().hasClass(currentPlayer))
+        ){
+        alert("yehey!");
+      };
+    };
+  };
 
   $(".turn-position").hover(
     function(){
       currentTurnPosition = $(this).html();
-      $(this).addClass("red");
+      $(this).addClass((currentPlayer == "red") ? "red" : "black");
     },
     function(){
-      $(this).removeClass("red");
+      $(this).removeClass("red black");
     }
   );
 
@@ -28,6 +78,8 @@ $(document).ready(function(){
       };
     };
     targetPosition = initialPosition + (7 * (6 - filledPosition));
-    $(".piece-holder").eq(targetPosition - 1).children().first().addClass("red");
+    $(".piece-holder").eq(targetPosition - 1).children().first().addClass((currentPlayer == "red") ? "red" : "black");
+    checkWinner(currentPlayer, targetPosition - 1);
+    changePlayer(currentPlayer);
   })
 });
