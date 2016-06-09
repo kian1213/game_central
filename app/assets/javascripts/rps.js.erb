@@ -134,7 +134,8 @@ $(document).ready(function(){
     getRandomPick();
   });
 
-  $(".start-btn").click(function(){
+  $(".start-btn").click(function(e){
+    e.preventDefault();
     startGame();
     $(this).hide();
   })
