@@ -1,9 +1,10 @@
 $(document).ready(function(){
   var currentTurnPosition;
-  var playerOneName = "Red";
-  var playerTwoName = "Black";
+  var playerOneName;
+  var playerTwoName;
   var whosFirst;
   var currentPlayer;
+  var gameInProcess;
 
   var changePlayer = function(current){
     if (current == "red"){
@@ -14,6 +15,7 @@ $(document).ready(function(){
   };
 
   var checkWinner = function(currentPlayer, targetPosition){
+    var winner;
     for(var i = 0; i <= 48;  i++){
       if((i + 3 <= 48 &&
           i != 4 && i!= 5 && i != 6 &&
@@ -50,15 +52,20 @@ $(document).ready(function(){
           $(".piece-holder").eq(i + (7*2-2)).children().first().hasClass(currentPlayer) &&
           $(".piece-holder").eq(i + (7*3-3)).children().first().hasClass(currentPlayer))
         ){
-        alert("yehey!");
+        winner = currentPlayer == "red" ? playerOneName : playerTwoName
+        gameInProcess = false;
+        alert(winner + " wins!!!");
+        $(".connect-player-buttons").show();
       };
     };
   };
 
-  var startGame = function(){
-    $(".connect-player-buttons").hide();
-    $(".connect-board").show();
-  };
+  var clearBoard = function(){
+    for(var i =0; i < 49; i++){
+      $(".piece-holder").eq(i).children().first().removeClass("red");
+      $(".piece-holder").eq(i).children().first().removeClass("black");
+    }
+  }
 
   var prepareNewGame = function(players){
     if(players == "one"){
@@ -67,7 +74,13 @@ $(document).ready(function(){
     } else {
       playerOneName = prompt("Please Enter Red Player");
       playerTwoName = prompt("Please Enter Black Player");
-    }
+    };
+    if(playerOneName == ""){
+      playerOneName = "Red"
+    };
+    if(playerTwoName == ""){
+      playerTwoName = "Black"
+    };
     whosFirst = prompt("Who will play first?");
 
     if (whosFirst.toLowerCase() == playerOneName.toLowerCase()
@@ -79,21 +92,20 @@ $(document).ready(function(){
     } else {
       currentPlayer = "red";
     };
-    startGame();
+    clearBoard();
+    gameInProcess = true;
+    $(".connect-player-buttons").hide();
+    $(".connect-board").show();
   };
 
-  $(".turn-position").hover(
-    function(){
-      currentTurnPosition = $(this).html();
-      $(this).addClass((currentPlayer == "red") ? "red" : "black");
-    },
-    function(){
-      $(this).removeClass("red black");
-    }
-  );
+  var computerTurn = function(playerOneLastPosition){
+    if(gameInProcess){
+      var randomPosition = Math.floor(Math.random()*2)
+      fillPosition(playerOneLastPosition + randomPosition);
+    };
+  };
 
-  $(".turn-position").click(function(){
-    var initialPosition = $(this).data("position");
+  var fillPosition = function(initialPosition){
     var filledPosition = 0;
     var targetPosition = 0;
     var lastPossiblePosition = initialPosition + (7*6);
@@ -112,7 +124,29 @@ $(document).ready(function(){
     $(this).addClass((currentPlayer == "red") ? "black" : "red");
     $(".piece-holder").eq(targetPosition - 1).children().first().addClass((currentPlayer == "red") ? "red" : "black");
     checkWinner(currentPlayer, targetPosition - 1);
-    changePlayer(currentPlayer);
+    if(currentPlayer == "red" && playerTwoName == "Computer"){
+      changePlayer(currentPlayer);
+      computerTurn(initialPosition);
+    } else {
+      changePlayer(currentPlayer);
+    };
+  };
+
+  $(".turn-position").hover(
+    function(){
+      currentTurnPosition = $(this).html();
+      $(this).addClass((currentPlayer == "red") ? "red" : "black");
+    },
+    function(){
+      $(this).removeClass("red black");
+    }
+  );
+
+  $(".turn-position").click(function(){
+    if(gameInProcess){
+      var initialPosition = $(this).data("position");
+      fillPosition(initialPosition);
+    };
   })
 
   $(".start-1p-btn").click(function(e){
