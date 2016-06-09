@@ -1,6 +1,9 @@
 $(document).ready(function(){
   var currentTurnPosition;
-  var currentPlayer = "red";
+  var playerOneName = "Red";
+  var playerTwoName = "Black";
+  var whosFirst;
+  var currentPlayer;
 
   var changePlayer = function(current){
     if (current == "red"){
@@ -52,6 +55,33 @@ $(document).ready(function(){
     };
   };
 
+  var startGame = function(){
+    $(".connect-player-buttons").hide();
+    $(".connect-board").show();
+  };
+
+  var prepareNewGame = function(players){
+    if(players == "one"){
+      playerOneName = prompt("Please Enter Red Player");
+      playerTwoName = "Computer";
+    } else {
+      playerOneName = prompt("Please Enter Red Player");
+      playerTwoName = prompt("Please Enter Black Player");
+    }
+    whosFirst = prompt("Who will play first?");
+
+    if (whosFirst.toLowerCase() == playerOneName.toLowerCase()
+        || whosFirst.toLowerCase() == "red"){
+      currentPlayer = "red";
+    } else if (whosFirst.toLowerCase() == playerTwoName.toLowerCase()
+        || whosFirst.toLowerCase() == "black") {
+      currentPlayer = "black";
+    } else {
+      currentPlayer = "red";
+    };
+    startGame();
+  };
+
   $(".turn-position").hover(
     function(){
       currentTurnPosition = $(this).html();
@@ -84,4 +114,14 @@ $(document).ready(function(){
     checkWinner(currentPlayer, targetPosition - 1);
     changePlayer(currentPlayer);
   })
+
+  $(".start-1p-btn").click(function(e){
+    e.preventDefault();
+    prepareNewGame("one");
+  });
+
+  $(".start-2p-btn").click(function(e){
+    e.preventDefault();
+    prepareNewGame("two");
+  });
 });
