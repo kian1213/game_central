@@ -9,9 +9,11 @@ $(document).ready(function(){
   var changePlayer = function(current){
     if (current == "red"){
       currentPlayer = "black";
+      $(".current-player").html(playerTwoName);
     } else {
       currentPlayer = "red";
-    }
+      $(".current-player").html(playerOneName);
+    };
   };
 
   var checkWinner = function(currentPlayer, targetPosition){
@@ -54,7 +56,7 @@ $(document).ready(function(){
         ){
         winner = currentPlayer == "red" ? playerOneName : playerTwoName
         gameInProcess = false;
-        alert(winner + " wins!!!");
+        $(".current-player").html(winner + " wins!!!");
         $(".connect-player-buttons").show();
       };
     };
@@ -86,12 +88,17 @@ $(document).ready(function(){
     if (whosFirst.toLowerCase() == playerOneName.toLowerCase()
         || whosFirst.toLowerCase() == "red"){
       currentPlayer = "red";
+      $(".current-player").html(playerOneName);
     } else if (whosFirst.toLowerCase() == playerTwoName.toLowerCase()
         || whosFirst.toLowerCase() == "black") {
       currentPlayer = "black";
+      $(".current-player").html(playerTwoName);
     } else {
       currentPlayer = "red";
+      $(".current-player").html(playerOneName);
     };
+    $(".player-one").html(playerOneName);
+    $(".player-two").html(playerTwoName);
     clearBoard();
     gameInProcess = true;
     $(".connect-player-buttons").hide();
